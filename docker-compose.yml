@@ -1,0 +1,80 @@
+version: '3.5'
+services:
+
+  # The Application
+  m3-todo-application:
+    container_name: m3-todo-application
+    image: m3-todo-application
+    networks:
+      - m3-todo-application
+      #- kafka-dockerised
+    build:
+      context: ./
+      dockerfile: docker/application/Dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - 9004:9000
+    depends_on:
+      - m3-todo-application-db
+    environment:
+      - "APP_NAME=m3-todo-application"
+      - "DB_HOST=m3-todo-application-db"
+      - "DB_USERNAME=homestead"
+      - "DB_PASSWORD=secret"
+      - "DB_DATABASE=homestead"
+      - "KAFKA_BROKERS=kafka"
+      - "APP_URL=http://localhost:8080"
+      - "CACHE_DRIVER=file"
+      - "SESSION_DRIVER=file"
+
+  # The Web Server
+  m3-todo-application-web:
+    container_name: m3-todo-application-web
+    image: m3-todo-application-web
+    networks:
+      - m3-todo-application
+    build:
+      context: ./
+      dockerfile: docker/web/Dockerfile
+    working_dir: /var/www
+    depends_on:
+      - m3-todo-application
+    volumes:
+      - ./public:/var/www/public
+    ports:
+      - 8080:80
+
+  # The Database
+  m3-todo-application-db:
+    container_name: m3-todo-application-db
+    networks:
+      - m3-todo-application
+    image: mysql:5.7
+    volumes:
+      - m3-todo-application-db:/var/lib/mysql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=secret"
+      - "MYSQL_USER=homestead"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_DATABASE=homestead"
+    ports:
+      - 33061:3306
+
+  composer:
+    image: composer:1.7.2
+    command: install --ignore-platform-reqs --no-scripts
+    volumes:
+      - $PWD:/app
+
+volumes:
+  m3-todo-application-db:
+
+networks:
+  m3-todo-application:
+    name: m3-todo-application
+      #    external: true
+      #kafka-dockerised:
+      #name: kafka-dockerised
+    #external: true
