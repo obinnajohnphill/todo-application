@@ -18,6 +18,7 @@ class CreateTodoItemsTable extends Migration
             $table->text('item');
             $table->string('date_required');
             $table->string('priority');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

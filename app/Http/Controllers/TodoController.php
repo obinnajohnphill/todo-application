@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TodoItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -12,7 +13,8 @@ class TodoController extends Controller
             'item' => $request['item'],
              'date_required' => $request['date_required'],
              'priority' => $request['priority'],
-        ));
+             'user_id' => Auth::id()
+       ));
         return redirect('/create')->with('success', 'Awesome!, you have successfully added a TODO item');
     }
 
