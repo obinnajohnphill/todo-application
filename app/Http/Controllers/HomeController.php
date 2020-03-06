@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TodoItem;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,8 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        return view('home');
+        $users = User::with('relatedTodoItem')->find(Auth::id())->get();
+        $items = TodoItem::where('user_id', '=', Auth::id())->get();
+        return view('home')->with('items',$items)->with('users',$users);
     }
 
     public function create(Request $request)

@@ -15,10 +15,11 @@ class TodoController extends Controller
              'priority' => $request['priority'],
              'user_id' => Auth::id()
        ));
-        return redirect('/create')->with('success', 'Awesome!, you have successfully added a TODO item');
+        return redirect('/home')->with('success', 'Awesome!, you have successfully added a TODO item');
     }
 
     function delete_todo(Request $request){
-
+        TodoItem::whereIn('id',json_decode($request['item_data'], true))->delete();
+        return "deleted";
     }
 }

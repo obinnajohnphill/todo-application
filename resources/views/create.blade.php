@@ -18,13 +18,7 @@
 <br />
 <div class="container box">
     <h3 align="center">M3 TODO Application</h3><br />
-    @if(isset(Auth::user()->username))
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+    @if(isset(Auth::user()->id))
         <!-- Small modal -->
             <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Logout</button>
 
