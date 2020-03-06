@@ -5,9 +5,9 @@ Run Scripts and commands:
 
 * clone https://github.com/obinnajohnphill/m3-todo-application.git
 
-* cd 3-todo-application
+* cd m3-todo-application
 
-* copy .env.example .env
+* copy .env.example .env (then update the database details)
 
 * composer install
 
