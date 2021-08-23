@@ -3,7 +3,7 @@ Info:
 
 Run Scripts and commands:
 
-* clone https://github.com/obinnajohnphill/m3-todo-application.git
+* git clone https://github.com/obinnajohnphill/todo-application.git
 
 * cd m3-todo-application
 
