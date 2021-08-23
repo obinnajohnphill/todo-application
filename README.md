@@ -5,7 +5,7 @@ Run Scripts and commands:
 
 * git clone https://github.com/obinnajohnphill/todo-application.git
 
-* cd m3-todo-application
+* cd todo-application
 
 * copy .env.example .env (then update the database details)
 
